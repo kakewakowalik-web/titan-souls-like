@@ -28,3 +28,11 @@ Podgląd: `art/proposals/compare_five.png`. Postać w ×6 na tle areny, obok ×2
 - **P4 – Łowca mrozu** (`p4_lowca_mrozu`): biało-błękitne futro, kaptur, lodowy łuk.
 - **P5 – Cień w kapturze** (`p5_cien_w_kapturze`): jedyna ciemna postać, z cyjanową poświatą.
 Najczytelniejsze na ciemnej arenie: P4, P3, P1. P2 i P5 też są dobrze widoczne.
+
+## Role (r1–r5)
+Podgląd: `art/proposals/compare_roles.png`. Pliki `art/proposals/r1…r5_*.png` + `_x6.png`, generator `make_roles.py`.
+- **1 – Rycerz w lśniącej zbroi** (`r1_rycerz_lsniacy`): jasna stal z białymi błyskami, niebieski pióropusz i tabard, złoty łuk.
+- **2 – Cień w kapturze** (`r2_cien_w_kapturze`): ta sama postać co P5 / C1, bez zmian.
+- **3 – Mały łotrzyk** (`r3_maly_lotrzyk`): niższa sylwetka, fioletowy kaptur, czerwona maska, sztylet i krótki łuk.
+- **4 – Barbarzyńca** (`r4_barbarzynca`): największy, wypełnia cały kadr; rogi, rudy zarost, futro na barkach, długi łuk.
+- **5 – Mag z kosturem** (`r5_mag`): kapelusz z gwiazdą, broda, kostur ze świecącą kulą, mały łuk.
