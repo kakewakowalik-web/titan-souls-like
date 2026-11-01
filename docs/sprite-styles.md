@@ -1,11 +1,12 @@
-# Propozycje stylu postaci (do wyboru)
-Podgląd zbiorczy: `art/proposals/compare.png`. Każdy styl: `<nazwa>.png` (16×20 px, 1:1) i `<nazwa>_x8.png` (powiększenie). Generator: `art/proposals/make.py`. Gra nadal używa starego prostokąta — podmienię po wyborze i dorobię animacje (chód 4 kl., przewrót, napinanie, 8 kierunków).
+# Propozycje stylu postaci — v2 (dokładniejsze)
+Podgląd zbiorczy: `art/proposals/compare.png` (każda postać w ×6 i obok w ×2 na trzech tłach: arena, ciemne, jasne).
+Pliki: `art/proposals/<nazwa>.png` (24×32 px, 1:1) i `<nazwa>_x6.png`. Generator: `art/proposals/make.py`. Każda postać ma 3 tony cieniowania (światło z lewej góry), obrys i łuk. Stare 16×20 są w `art/proposals/v1/`. Gra nadal używa starej postaci — podmienię ją po wyborze.
 
-- **A – Krępy 16-bit** (`a_titan_chunky`) — najbliżej Titan Souls: duża głowa, ciepłe kolory, czytelny na każdym tle.
-- **B – Smukły jak Zelda LttP** (`b_zelda_thin`) — zielona tunika i czapka, klasyczna przygoda, lżejszy.
-- **C – Mroczna sylwetka** (`c_dark_silhouette`) — prawie czarny, świecące oczy; klimat Dark Souls, ale trudniej go dostrzec na ciemnej arenie (trzeba by dodać obrys).
-- **D – Słodki chibi** (`d_chibi`) — ogromna głowa, rumieńce; kontrast „mały i słodki kontra tytan”.
-- **E – Rycerz w zbroi** (`e_armored_knight`) — stal i czerwony pióropusz; ciężki wygląd (kłóci się trochę z szybkim przewrotem).
-- **F – Łucznik w kapturze** (`f_hooded_archer`) — zielony płaszcz, kołczan na plecach; najbardziej „łucznik” i pasuje do gry o jednej strzale.
+- **A – Krępy 16-bit** (`a_titan_chunky`): duża głowa, czerwona tunika z pasem przez pierś. Najbliżej Titan Souls. **Bardzo czytelny.**
+- **B – Smukły jak Zelda LttP** (`b_zelda_thin`): zielona czapka i tunika, blond włosy. **Bardzo czytelny** (mocna zieleń).
+- **C – Mroczna sylwetka** (`c_dark_silhouette`): czarny płaszcz, świecące oczy, chłodna poświata z lewej góry. Teraz widać go na ciemnym tle, ale nadal jest najsłabszy przy ruchu.
+- **D – Słodki chibi** (`d_chibi`): ogromna głowa, duże oczy, kokardka. Czytelny, ale głowa zasłania łuk i kierunek celowania.
+- **E – Rycerz w zbroi** (`e_armored_knight`): stal, czerwony pióropusz i tabard z krzyżem. Czytelny; wygląda ciężko jak na szybkie przewroty.
+- **F – Łucznik w kapturze** (`f_hooded_archer`): zielony płaszcz, kołczan ze strzałami, łuk. Czytelny; na ciemnej arenie trochę ginie (zieleń zbliżona do tła).
 
-Moja rekomendacja: **A** albo **F**.
+Najlepsza czytelność: **A ≈ B > E > F > D > C**. Rekomendacja: **A** (klimat Titan Souls) lub **F** z jaśniejszym płaszczem.
