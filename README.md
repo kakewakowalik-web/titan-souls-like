@@ -21,3 +21,13 @@ wygładzanie wykładnicze 8/s · martwa strefa 6 px · wyprzedzenie: 14 px w str
 260 px/s × (0,4–1,0 zależnie od napięcia), opór 0,3/s, wbija się w ściany/filary; przywołanie przyspiesza 60→420 px/s i trafia tarcze po drodze.
 
 Testy: `godot --headless --path . -s playtest.gd`. Notatki: docs/feel-notes.md.
+
+## Postacie (wybór po ekranie tytułowym, Esc = zmiana)
+| postać | broń | cechy |
+|---|---|---|
+| Rycerz | łuk, 1 strzała | chód 56, przewrót 185 px/s, strzała 280 px/s |
+| Cień | łuk, 1 strzała | przewrót 220 px/s × 0,25 s (najdłuższy) |
+| Łotrzyk | łuk, 1 strzała | chód 70, napięcie ×1,6 szybsze, krótszy zasięg |
+| Barbarzyńca | topór (rzut + przywołanie, wiruje) | krótki lot, powrót 520 px/s |
+| Mag | kula zaklęcia (rzut czaru + przyciągnięcie) | wolne napięcie, długi lot, powrót 340 px/s |
+Wybór: ◄ ► / A D / krzyżak / lewa gałka, Enter / A = graj. Rzucanie czaru i topora też wymaga stania w miejscu (jak napinanie). Sprite'y: art/player/.

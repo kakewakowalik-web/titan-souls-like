@@ -38,7 +38,8 @@ def r4():  # Barbarzyńca — duży, wypełnia kadr
     s.ell(3, 14, 3, 3, 'c8b898', 'furL'); s.ell(21, 14, 3, 3, 'c8b898', 'furR')
     s.rect(0, 15, 2, 22, 'd8986a', 'armL'); s.rect(21, 15, 23, 22, 'd8986a', 'armR')
     s.line([(9, 15), (12, 18), (15, 15)], 'b0705a', 'pec', True); s.line([(6, 13), (18, 21)], '5a3a22', 'strap', True)
-    s.line([(1, 4), (0, 10), (0, 22), (1, 28)], '5a3a22', 'bow'); s.line([(1, 4), (1, 28)], 'e0d8c0', 'str')
+    s.line([(1, 8), (1, 28)], '6a4a2a', 'haft')  # topór zamiast łuku
+    s.ell(1.5, 7, 2.5, 3.5, 'b8c0c8', 'blade'); s.line([(0, 4), (0, 10)], 'f0f4f8', 'edge', True); s.put(2, 7, '6a7280', 'rivet', True)
     s.ell(12, 8, 5, 5, 'd8986a', 'face'); s.ell(12, 5, 6, 3.5, 'c84a1a', 'hair'); s.line([(6, 6), (5, 13)], 'c84a1a', 'mane', False); s.line([(18, 6), (19, 13)], 'c84a1a', 'mane', False)
     s.ell(12, 12, 3.5, 2.2, 'c84a1a', 'beard')
     s.line([(7, 3), (5, 0)], 'e8e0d0', 'horn', True); s.line([(17, 3), (19, 0)], 'e8e0d0', 'horn', True)
@@ -53,14 +54,15 @@ def r5():  # Mag z kosturem
     s.ell(5, 21, 1.5, 1.5, 'f0d0b0', 'hL'); s.ell(19, 21, 1.5, 1.5, 'f0d0b0', 'hR')
     s.line([(20, 8), (20, 30)], '7a4a22', 'staff'); s.ell(20, 6, 2.2, 2.2, '7af0ff', 'orb', True); s.put(19, 5, 'ffffff', 'gl', True)
     for p in ((17, 3), (23, 4), (22, 9), (17, 8)): s.put(*p, 'b0f8ff', 'spark', True)
-    s.line([(4, 14), (3, 18), (4, 22)], '6a4a2a', 'bow'); s.line([(4, 14), (4, 22)], 'c0d0ff', 'str')
+    for p in ((3, 18), (4, 16), (2, 20)): s.put(*p, '9ae8ff', 'magic', True)  # iskry zaklęcia w dłoni
+    s.ell(4, 18, 1.5, 1.5, '4ac8ff', 'mball', True)
     s.ell(12, 12, 4.5, 4.5, 'f0d0b0', 'face'); s.ell(12, 15, 4, 3, 'e8e8f0', 'beard'); s.line([(12, 17), (12, 19)], 'e8e8f0', 'beard', True)
     s.ell(12, 9, 9, 2, '3a2a90', 'brim'); s.ell(12, 6, 3.5, 3, '4a3ab0', 'cone'); s.line([(13, 4), (15, 1), (17, 0)], '4a3ab0', 'tip', False)
     s.put(11, 6, 'ffe070', 'star', True); s.put(10, 11, '2a2a6a', 'e', True); s.put(14, 11, '2a2a6a', 'e', True)
     shadow(s); return s.render(outline='120e2a')
 
 CH = [("r1_rycerz_lsniacy", "1: Rycerz w lśniącej zbroi", r1), ("r2_cien_w_kapturze", "2: Cień w kapturze (P5)", c1),
-      ("r3_maly_lotrzyk", "3: Mały łotrzyk", r3), ("r4_barbarzynca", "4: Barbarzyńca", r4), ("r5_mag", "5: Mag z kosturem", r5)]
+      ("r3_maly_lotrzyk", "3: Mały łotrzyk", r3), ("r4_barbarzynca", "4: Barbarzyńca (topór)", r4), ("r5_mag", "5: Mag (zaklęcia)", r5)]
 SC = 6; DARK = (20, 19, 24); ARENA = (47, 45, 41)
 cw, chh = W * SC + 90, H * SC + 50
 sheet = Image.new('RGB', (cw * 5, chh), (16, 15, 20)); d = ImageDraw.Draw(sheet)
