@@ -80,20 +80,48 @@ func reset() -> void:
 	dummies = [{"p": Vector2(320, 90), "hit": 0.0}, {"p": Vector2(90, 240), "hit": 0.0}, {"p": Vector2(550, 240), "hit": 0.0}]
 	dodge_buf = 0.0; shift_was = false; trail.clear(); cam_pos = ppos; cam.position = cam_pos; cam.zoom = Vector2.ONE * ZOOM_BASE
 
-# --- wejście ---
+# --- wejście (klawiatura + mysz + pad) ---
+const STICK_DZ := 0.22     # martwa strefa lewej gałki (radialna, z przeskalowaniem)
+const AIM_DZ := 0.35       # martwa strefa prawej gałki
+const TRIG_ON := 0.45      # próg spustu
+var pad_aim := false       # true = celujemy gałką, dopóki mysz się nie ruszy
+var pad_used := false
+
+func _input(e: InputEvent) -> void:
+	if e is InputEventMouseMotion: pad_aim = false
+	if e is InputEventJoypadButton or (e is InputEventJoypadMotion and abs(e.axis_value) > 0.5): pad_used = true
+	if e is InputEventJoypadButton and e.pressed and e.button_index == JOY_BUTTON_START: started = true
+
+func _stick(ax: JoyAxis, ay: JoyAxis, dz: float) -> Vector2:
+	var v := Vector2(Input.get_joy_axis(0, ax), Input.get_joy_axis(0, ay))
+	var l := v.length()
+	if l < dz: return Vector2.ZERO
+	return v / l * min(1.0, (l - dz) / (1.0 - dz))
+func _btn(b: JoyButton) -> bool:
+	return Input.is_joy_button_pressed(0, b)
+func _trig(ax: JoyAxis) -> bool:
+	return Input.get_joy_axis(0, ax) > TRIG_ON
+
 func in_move() -> Vector2:
 	if sim.has("move"): return sim.move.normalized()
-	return Vector2(
+	var k := Vector2(
 		float(Input.is_key_pressed(KEY_D) or Input.is_key_pressed(KEY_RIGHT)) - float(Input.is_key_pressed(KEY_A) or Input.is_key_pressed(KEY_LEFT)),
 		float(Input.is_key_pressed(KEY_S) or Input.is_key_pressed(KEY_DOWN)) - float(Input.is_key_pressed(KEY_W) or Input.is_key_pressed(KEY_UP))).normalized()
+	if k != Vector2.ZERO: return k
+	return _stick(JOY_AXIS_LEFT_X, JOY_AXIS_LEFT_Y, STICK_DZ)  # analog: długość = prędkość
 func in_aim() -> Vector2:
-	return sim.aim if sim.has("aim") else get_global_mouse_position()
+	if sim.has("aim"): return sim.aim
+	if sim.has("stick_aim"): pad_aim = true; return ppos + sim.stick_aim.normalized() * 40.0
+	var r := _stick(JOY_AXIS_RIGHT_X, JOY_AXIS_RIGHT_Y, AIM_DZ)
+	if r != Vector2.ZERO: pad_aim = true; return ppos + r.normalized() * 40.0
+	if pad_aim: return ppos + aim * 40.0  # gałka puszczona: trzymaj ostatni kierunek
+	return get_global_mouse_position()
 func in_shoot() -> bool:
-	return sim.get("shoot", Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) or Input.is_key_pressed(KEY_SPACE))
+	return sim.get("shoot", Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) or Input.is_key_pressed(KEY_SPACE) or _trig(JOY_AXIS_TRIGGER_RIGHT) or _btn(JOY_BUTTON_A))
 func in_recall() -> bool:
-	return sim.get("recall", Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) or Input.is_key_pressed(KEY_R))
+	return sim.get("recall", Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) or Input.is_key_pressed(KEY_R) or _trig(JOY_AXIS_TRIGGER_LEFT) or _btn(JOY_BUTTON_X))
 func in_dodge() -> bool:
-	return sim.get("dodge", Input.is_key_pressed(KEY_SHIFT) or Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE))
+	return sim.get("dodge", Input.is_key_pressed(KEY_SHIFT) or Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE) or _btn(JOY_BUTTON_B) or _btn(JOY_BUTTON_LEFT_SHOULDER) or _btn(JOY_BUTTON_RIGHT_SHOULDER) or _btn(JOY_BUTTON_LEFT_STICK))
 
 func _process(dt: float) -> void:
 	step(dt)
@@ -102,7 +130,7 @@ func step(dt: float) -> void:
 	t += dt
 	shake = max(0.0, shake - dt * 6.0)
 	if not started:
-		if Input.is_key_pressed(KEY_ENTER) or sim.size() > 0: started = true
+		if Input.is_key_pressed(KEY_ENTER) or sim.size() > 0 or _btn(JOY_BUTTON_A): started = true
 		_camera(dt); queue_redraw(); hud.queue_redraw(); return
 	if hitstop > 0.0:
 		hitstop -= dt
@@ -138,7 +166,8 @@ func _player(dt: float) -> void:
 		_pickup()
 		if roll_t <= 0.0: pvel = roll_dir * (RUN if shift and v != Vector2.ZERO else WALK)
 		shift_was = shift; return
-	if dodge_buf > 0.0 and roll_cd <= 0.0 and not charging and not recalling:
+	if dodge_buf > 0.0 and roll_cd <= 0.0 and not charging:
+		recalling = false
 		dodge_buf = 0.0
 		roll_dir = v if v != Vector2.ZERO else last_dir
 		roll_t = ROLL_TIME; roll_cd = ROLL_TIME + ROLL_CD
@@ -156,7 +185,7 @@ func _player(dt: float) -> void:
 	var was_rec := recalling
 	recalling = (not has_arrow) and (not aflying) and (recall_held or shoot_held)
 	if recalling and not was_rec: recall_speed = 0.0
-	if charging or recalling:
+	if charging:
 		pvel = pvel.move_toward(Vector2.ZERO, FRICTION * 2.0 * dt); _move(dt); return
 	var target := v * (RUN if shift else WALK)
 	if v != Vector2.ZERO:
@@ -286,9 +315,15 @@ func _draw_hud() -> void:
 		hud.draw_rect(Rect2(0, 0, VIEW.x, VIEW.y), Color(0, 0, 0, 0.7))
 		hud.draw_string(f, Vector2(0, 50), "STRZAŁA STRAŻNIKA", HORIZONTAL_ALIGNMENT_CENTER, VIEW.x, 20, Color("e8d9a0"))
 		hud.draw_string(f, Vector2(0, 68), "ARENA TRENINGOWA · JEDNA STRZAŁA", HORIZONTAL_ALIGNMENT_CENTER, VIEW.x, 9, Color("a89f86"))
-		var lines := ["WASD / strzałki – ruch", "Mysz – celowanie", "LPM / Spacja (trzymaj) – napnij, puść – strzał", "PPM / R (trzymaj) – przywołaj strzałę", "Shift / ŚPM – unik (przewrót), trzymaj = bieg", "Napinanie i przywołanie = stoisz w miejscu", "Trafiaj w tarcze, ćwicz uniki między filarami", "", "ENTER – start"]
-		for i in lines.size():
-			hud.draw_string(f, Vector2(0, 96 + i * 13), lines[i], HORIZONTAL_ALIGNMENT_CENTER, VIEW.x, 9, Color("cfc6ad"))
+		var rows := [["", "KLAWIATURA + MYSZ", "PAD"], ["ruch", "WASD / strzałki", "lewa gałka"], ["celowanie", "mysz", "prawa gałka"], ["napnij/strzał", "LPM / Spacja", "RT / A"], ["przywołanie", "PPM / R", "LT / X"], ["unik / bieg", "Shift / ŚPM", "B / LB / RB / L3"]]
+		for i in rows.size():
+			var c := Color("e8d9a0") if i == 0 else Color("cfc6ad")
+			hud.draw_string(f, Vector2(14, 92 + i * 13), rows[i][0], HORIZONTAL_ALIGNMENT_LEFT, -1, 8, Color("a89f86"))
+			hud.draw_string(f, Vector2(88, 92 + i * 13), rows[i][1], HORIZONTAL_ALIGNMENT_LEFT, -1, 8, c)
+			hud.draw_string(f, Vector2(208, 92 + i * 13), rows[i][2], HORIZONTAL_ALIGNMENT_LEFT, -1, 8, c)
+		hud.draw_string(f, Vector2(0, 184), "Napinanie łuku = stoisz. Przywołując strzałę możesz chodzić.", HORIZONTAL_ALIGNMENT_CENTER, VIEW.x, 8, Color("cfc6ad"))
+		hud.draw_string(f, Vector2(0, 198), "Unik przerywa przywołanie (trzymaj dalej, by wznowić).", HORIZONTAL_ALIGNMENT_CENTER, VIEW.x, 8, Color("cfc6ad"))
+		hud.draw_string(f, Vector2(0, 220), "ENTER / START / A – start", HORIZONTAL_ALIGNMENT_CENTER, VIEW.x, 9, Color("e8d9a0"))
 		return
 	hud.draw_string(f, Vector2(4, 12), "ARENA TRENINGOWA", HORIZONTAL_ALIGNMENT_LEFT, -1, 8, Color("7d7563"))
-	hud.draw_string(f, Vector2(0, 236), "Shift: unik · 1 STRZAŁA · " + ("strzała: jest" if has_arrow else "R/PPM: przywołaj"), HORIZONTAL_ALIGNMENT_RIGHT, VIEW.x - 4, 8, Color("7d7563"))
+	hud.draw_string(f, Vector2(0, 236), ("B/LB: unik" if pad_used else "Shift: unik") + " · 1 STRZAŁA · " + ("strzała: jest" if has_arrow else ("LT/X: przywołaj" if pad_used else "R/PPM: przywołaj")), HORIZONTAL_ALIGNMENT_RIGHT, VIEW.x - 4, 8, Color("7d7563"))

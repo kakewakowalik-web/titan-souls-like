@@ -96,5 +96,24 @@ func _init():
 		if pd != Vector2.ZERO and (d - pd).length() > 1.5: jit += 1
 		pd = d; prev = m.cam.position
 	R.cam_jitter_frames = jit
+	# 10. ruch podczas przywołania
+	m.reset(); m.has_arrow = false; m.aflying = false; m.apos = Vector2(320, 100)
+	var x1 = m.ppos.x
+	run(30, {"move": Vector2.RIGHT, "recall": true})
+	R.recall_move_px = snapped(m.ppos.x - x1, 0.1); R.recall_active_while_move = m.recalling
+	run(1, {"move": Vector2.RIGHT, "recall": true, "dodge": true})
+	R.roll_during_recall = m.roll_t > 0.0 and not m.recalling
+	while m.roll_t > 0.0: m.step(DT)
+	run(2, {"move": Vector2.RIGHT, "recall": true, "dodge": false}); R.recall_resumes = m.recalling
+	f = 0
+	while not m.has_arrow and f < 300:
+		m.sim = {"move": Vector2.LEFT, "recall": true}; m.step(DT); f += 1
+	R.recall_move_caught = m.has_arrow
+	# 11. napinanie dalej blokuje ruch
+	m.reset(); run(20, {"move": Vector2.RIGHT, "shoot": true}); var x2 = m.ppos.x
+	run(20, {"move": Vector2.RIGHT, "shoot": true}); R.draw_still = abs(m.ppos.x - x2) < 0.5
+	# 12. pad: celowanie gałką
+	m.reset(); run(3, {"stick_aim": Vector2(1, 1)}); R.pad_aim_ok = m.aim.dot(Vector2(1, 1).normalized()) > 0.99
+	R.stick_deadzone = m._stick(JOY_AXIS_LEFT_X, JOY_AXIS_LEFT_Y, m.STICK_DZ) == Vector2.ZERO
 	for k in R: print("PT ", k, " = ", R[k])
 	quit()

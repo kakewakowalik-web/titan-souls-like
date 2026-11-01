@@ -10,6 +10,7 @@ func _init():
 	m = load("res://main.tscn").instantiate(); root.add_child(m); await process_frame
 	m.set_process(false)
 	await snap("shot-title.png")
+	await snap("shot-pad-hint.png")
 	m.sim = {"move": Vector2.ZERO}; m.step(DT)
 	# ruch: bieg po skosie z celowaniem w bok
 	for i in 50:
@@ -27,4 +28,8 @@ func _init():
 	m.sim = {"shoot": false}
 	for i in 40: m.step(DT)
 	await snap("shot-cam-follow.png")
+	# przywołanie w ruchu
+	m.sim = {"recall": true, "move": Vector2(-1, 0)}
+	for i in 14: m.step(DT)
+	await snap("shot-recall-move.png")
 	quit()
