@@ -18,3 +18,6 @@ Note: ground is painted per-pixel with organic edges (not tile-stamped); tileset
 - ground_layer.png is now ASSEMBLED from these tiles; map.json = per-layer tile IDs (-1 empty), layer order base,path,paving,water,hedge,cliff,deco.
 - collision.json rebuilt from tiles (bridge walkable, cave_trigger_tiles). canopy + anim unchanged.
 - v1 kept as tileset_v1.json / preview_v1.png; build.py still provides masks.
+
+## v2.1 cave fix
+South-facing arch at tiles x214–218, y34–36 (opening x215–217, 3 wide). Interior BEHIND arch (north, into cliff): floor x212–219, y25–33, walkable x213–218, y26–32 (6×7) plus a 4-wide neck at y33. Approach clearing y37–43, x≈203–225. cave_trigger_tiles = [[215,34],[216,34],[217,34]] (threshold). New tile: cave_floor.

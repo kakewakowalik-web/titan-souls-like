@@ -31,639 +31,645 @@
    "y": 0,
    "collision": "walkable"
   },
-  "grass_mid": {
+  "cave_floor": {
    "id": 3,
    "x": 48,
    "y": 0,
-   "collision": "walkable"
+   "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
   },
-  "grass_dark": {
+  "grass_mid": {
    "id": 4,
    "x": 64,
    "y": 0,
    "collision": "walkable"
   },
-  "grass_dark_alt": {
+  "grass_dark": {
    "id": 5,
    "x": 80,
    "y": 0,
    "collision": "walkable"
   },
-  "bridge": {
+  "grass_dark_alt": {
    "id": 6,
    "x": 96,
    "y": 0,
    "collision": "walkable"
   },
-  "rock": {
+  "bridge": {
    "id": 7,
    "x": 112,
    "y": 0,
-   "collision": "solid"
+   "collision": "walkable"
   },
-  "pillar": {
+  "rock": {
    "id": 8,
    "x": 128,
    "y": 0,
    "collision": "solid"
   },
-  "tree_trunk": {
+  "pillar": {
    "id": 9,
    "x": 144,
    "y": 0,
    "collision": "solid"
   },
-  "fountain_0_0": {
+  "tree_trunk": {
    "id": 10,
    "x": 160,
    "y": 0,
    "collision": "solid"
   },
-  "fountain_1_0": {
+  "fountain_0_0": {
    "id": 11,
    "x": 176,
    "y": 0,
    "collision": "solid"
   },
-  "fountain_2_0": {
+  "fountain_1_0": {
    "id": 12,
    "x": 192,
    "y": 0,
    "collision": "solid"
   },
-  "fountain_0_1": {
+  "fountain_2_0": {
    "id": 13,
    "x": 208,
    "y": 0,
    "collision": "solid"
   },
-  "fountain_1_1": {
+  "fountain_0_1": {
    "id": 14,
    "x": 224,
    "y": 0,
    "collision": "solid"
   },
-  "fountain_2_1": {
+  "fountain_1_1": {
    "id": 15,
    "x": 240,
    "y": 0,
    "collision": "solid"
   },
-  "fountain_0_2": {
+  "fountain_2_1": {
    "id": 16,
    "x": 0,
    "y": 16,
    "collision": "solid"
   },
-  "fountain_1_2": {
+  "fountain_0_2": {
    "id": 17,
    "x": 16,
    "y": 16,
    "collision": "solid"
   },
-  "fountain_2_2": {
+  "fountain_1_2": {
    "id": 18,
    "x": 32,
    "y": 16,
    "collision": "solid"
   },
-  "cave_0_0": {
+  "fountain_2_2": {
    "id": 19,
    "x": 48,
    "y": 16,
-   "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
+   "collision": "solid"
   },
-  "cave_1_0": {
+  "cave_0_0": {
    "id": 20,
    "x": 64,
    "y": 16,
    "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
   },
-  "cave_2_0": {
+  "cave_1_0": {
    "id": 21,
    "x": 80,
    "y": 16,
    "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
   },
-  "cave_3_0": {
+  "cave_2_0": {
    "id": 22,
    "x": 96,
    "y": 16,
    "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
   },
-  "cave_4_0": {
+  "cave_3_0": {
    "id": 23,
    "x": 112,
    "y": 16,
    "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
   },
-  "cave_0_1": {
+  "cave_4_0": {
    "id": 24,
    "x": 128,
    "y": 16,
    "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
   },
-  "cave_1_1": {
+  "cave_0_1": {
    "id": 25,
    "x": 144,
    "y": 16,
    "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
   },
-  "cave_2_1": {
+  "cave_1_1": {
    "id": 26,
    "x": 160,
    "y": 16,
    "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
   },
-  "cave_3_1": {
+  "cave_2_1": {
    "id": 27,
    "x": 176,
    "y": 16,
    "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
   },
-  "cave_4_1": {
+  "cave_3_1": {
    "id": 28,
    "x": 192,
    "y": 16,
    "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
   },
-  "cave_0_2": {
+  "cave_4_1": {
    "id": 29,
    "x": 208,
    "y": 16,
    "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
   },
-  "cave_1_2": {
+  "cave_0_2": {
    "id": 30,
    "x": 224,
    "y": 16,
    "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
   },
-  "cave_2_2": {
+  "cave_1_2": {
    "id": 31,
    "x": 240,
    "y": 16,
    "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
   },
-  "cave_3_2": {
+  "cave_2_2": {
    "id": 32,
    "x": 0,
    "y": 32,
    "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
   },
-  "cave_4_2": {
+  "cave_3_2": {
    "id": 33,
    "x": 16,
    "y": 32,
    "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
   },
-  "path_0001": {
+  "cave_4_2": {
    "id": 34,
    "x": 32,
    "y": 32,
-   "collision": "walkable"
+   "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
   },
-  "path_0010": {
+  "path_0001": {
    "id": 35,
    "x": 48,
    "y": 32,
    "collision": "walkable"
   },
-  "path_0011": {
+  "path_0010": {
    "id": 36,
    "x": 64,
    "y": 32,
    "collision": "walkable"
   },
-  "path_0100": {
+  "path_0011": {
    "id": 37,
    "x": 80,
    "y": 32,
    "collision": "walkable"
   },
-  "path_0101": {
+  "path_0100": {
    "id": 38,
    "x": 96,
    "y": 32,
    "collision": "walkable"
   },
-  "path_0110": {
+  "path_0101": {
    "id": 39,
    "x": 112,
    "y": 32,
    "collision": "walkable"
   },
-  "path_0111": {
+  "path_0110": {
    "id": 40,
    "x": 128,
    "y": 32,
    "collision": "walkable"
   },
-  "path_1000": {
+  "path_0111": {
    "id": 41,
    "x": 144,
    "y": 32,
    "collision": "walkable"
   },
-  "path_1001": {
+  "path_1000": {
    "id": 42,
    "x": 160,
    "y": 32,
    "collision": "walkable"
   },
-  "path_1010": {
+  "path_1001": {
    "id": 43,
    "x": 176,
    "y": 32,
    "collision": "walkable"
   },
-  "path_1011": {
+  "path_1010": {
    "id": 44,
    "x": 192,
    "y": 32,
    "collision": "walkable"
   },
-  "path_1100": {
+  "path_1011": {
    "id": 45,
    "x": 208,
    "y": 32,
    "collision": "walkable"
   },
-  "path_1101": {
+  "path_1100": {
    "id": 46,
    "x": 224,
    "y": 32,
    "collision": "walkable"
   },
-  "path_1110": {
+  "path_1101": {
    "id": 47,
    "x": 240,
    "y": 32,
    "collision": "walkable"
   },
-  "path_1111": {
+  "path_1110": {
    "id": 48,
    "x": 0,
    "y": 48,
    "collision": "walkable"
   },
-  "paving_0001": {
+  "path_1111": {
    "id": 49,
    "x": 16,
    "y": 48,
    "collision": "walkable"
   },
-  "paving_0010": {
+  "paving_0001": {
    "id": 50,
    "x": 32,
    "y": 48,
    "collision": "walkable"
   },
-  "paving_0011": {
+  "paving_0010": {
    "id": 51,
    "x": 48,
    "y": 48,
    "collision": "walkable"
   },
-  "paving_0100": {
+  "paving_0011": {
    "id": 52,
    "x": 64,
    "y": 48,
    "collision": "walkable"
   },
-  "paving_0101": {
+  "paving_0100": {
    "id": 53,
    "x": 80,
    "y": 48,
    "collision": "walkable"
   },
-  "paving_0110": {
+  "paving_0101": {
    "id": 54,
    "x": 96,
    "y": 48,
    "collision": "walkable"
   },
-  "paving_0111": {
+  "paving_0110": {
    "id": 55,
    "x": 112,
    "y": 48,
    "collision": "walkable"
   },
-  "paving_1000": {
+  "paving_0111": {
    "id": 56,
    "x": 128,
    "y": 48,
    "collision": "walkable"
   },
-  "paving_1001": {
+  "paving_1000": {
    "id": 57,
    "x": 144,
    "y": 48,
    "collision": "walkable"
   },
-  "paving_1010": {
+  "paving_1001": {
    "id": 58,
    "x": 160,
    "y": 48,
    "collision": "walkable"
   },
-  "paving_1011": {
+  "paving_1010": {
    "id": 59,
    "x": 176,
    "y": 48,
    "collision": "walkable"
   },
-  "paving_1100": {
+  "paving_1011": {
    "id": 60,
    "x": 192,
    "y": 48,
    "collision": "walkable"
   },
-  "paving_1101": {
+  "paving_1100": {
    "id": 61,
    "x": 208,
    "y": 48,
    "collision": "walkable"
   },
-  "paving_1110": {
+  "paving_1101": {
    "id": 62,
    "x": 224,
    "y": 48,
    "collision": "walkable"
   },
-  "paving_1111": {
+  "paving_1110": {
    "id": 63,
    "x": 240,
    "y": 48,
    "collision": "walkable"
   },
-  "water_0001": {
+  "paving_1111": {
    "id": 64,
    "x": 0,
    "y": 64,
-   "collision": "water"
+   "collision": "walkable"
   },
-  "water_0010": {
+  "water_0001": {
    "id": 65,
    "x": 16,
    "y": 64,
    "collision": "water"
   },
-  "water_0011": {
+  "water_0010": {
    "id": 66,
    "x": 32,
    "y": 64,
    "collision": "water"
   },
-  "water_0100": {
+  "water_0011": {
    "id": 67,
    "x": 48,
    "y": 64,
    "collision": "water"
   },
-  "water_0101": {
+  "water_0100": {
    "id": 68,
    "x": 64,
    "y": 64,
    "collision": "water"
   },
-  "water_0110": {
+  "water_0101": {
    "id": 69,
    "x": 80,
    "y": 64,
    "collision": "water"
   },
-  "water_0111": {
+  "water_0110": {
    "id": 70,
    "x": 96,
    "y": 64,
    "collision": "water"
   },
-  "water_1000": {
+  "water_0111": {
    "id": 71,
    "x": 112,
    "y": 64,
    "collision": "water"
   },
-  "water_1001": {
+  "water_1000": {
    "id": 72,
    "x": 128,
    "y": 64,
    "collision": "water"
   },
-  "water_1010": {
+  "water_1001": {
    "id": 73,
    "x": 144,
    "y": 64,
    "collision": "water"
   },
-  "water_1011": {
+  "water_1010": {
    "id": 74,
    "x": 160,
    "y": 64,
    "collision": "water"
   },
-  "water_1100": {
+  "water_1011": {
    "id": 75,
    "x": 176,
    "y": 64,
    "collision": "water"
   },
-  "water_1101": {
+  "water_1100": {
    "id": 76,
    "x": 192,
    "y": 64,
    "collision": "water"
   },
-  "water_1110": {
+  "water_1101": {
    "id": 77,
    "x": 208,
    "y": 64,
    "collision": "water"
   },
-  "water_1111": {
+  "water_1110": {
    "id": 78,
    "x": 224,
    "y": 64,
    "collision": "water"
   },
-  "cliff_0001": {
+  "water_1111": {
    "id": 79,
    "x": 240,
    "y": 64,
-   "collision": "solid"
+   "collision": "water"
   },
-  "cliff_0010": {
+  "cliff_0001": {
    "id": 80,
    "x": 0,
    "y": 80,
    "collision": "solid"
   },
-  "cliff_0011": {
+  "cliff_0010": {
    "id": 81,
    "x": 16,
    "y": 80,
    "collision": "solid"
   },
-  "cliff_0100": {
+  "cliff_0011": {
    "id": 82,
    "x": 32,
    "y": 80,
    "collision": "solid"
   },
-  "cliff_0101": {
+  "cliff_0100": {
    "id": 83,
    "x": 48,
    "y": 80,
    "collision": "solid"
   },
-  "cliff_0110": {
+  "cliff_0101": {
    "id": 84,
    "x": 64,
    "y": 80,
    "collision": "solid"
   },
-  "cliff_0111": {
+  "cliff_0110": {
    "id": 85,
    "x": 80,
    "y": 80,
    "collision": "solid"
   },
-  "cliff_1000": {
+  "cliff_0111": {
    "id": 86,
    "x": 96,
    "y": 80,
    "collision": "solid"
   },
-  "cliff_1001": {
+  "cliff_1000": {
    "id": 87,
    "x": 112,
    "y": 80,
    "collision": "solid"
   },
-  "cliff_1010": {
+  "cliff_1001": {
    "id": 88,
    "x": 128,
    "y": 80,
    "collision": "solid"
   },
-  "cliff_1011": {
+  "cliff_1010": {
    "id": 89,
    "x": 144,
    "y": 80,
    "collision": "solid"
   },
-  "cliff_1100": {
+  "cliff_1011": {
    "id": 90,
    "x": 160,
    "y": 80,
    "collision": "solid"
   },
-  "cliff_1101": {
+  "cliff_1100": {
    "id": 91,
    "x": 176,
    "y": 80,
    "collision": "solid"
   },
-  "cliff_1110": {
+  "cliff_1101": {
    "id": 92,
    "x": 192,
    "y": 80,
    "collision": "solid"
   },
-  "cliff_1111": {
+  "cliff_1110": {
    "id": 93,
    "x": 208,
    "y": 80,
    "collision": "solid"
   },
-  "hedge_0001": {
+  "cliff_1111": {
    "id": 94,
    "x": 224,
    "y": 80,
    "collision": "solid"
   },
-  "hedge_0010": {
+  "hedge_0001": {
    "id": 95,
    "x": 240,
    "y": 80,
    "collision": "solid"
   },
-  "hedge_0011": {
+  "hedge_0010": {
    "id": 96,
    "x": 0,
    "y": 96,
    "collision": "solid"
   },
-  "hedge_0100": {
+  "hedge_0011": {
    "id": 97,
    "x": 16,
    "y": 96,
    "collision": "solid"
   },
-  "hedge_0101": {
+  "hedge_0100": {
    "id": 98,
    "x": 32,
    "y": 96,
    "collision": "solid"
   },
-  "hedge_0110": {
+  "hedge_0101": {
    "id": 99,
    "x": 48,
    "y": 96,
    "collision": "solid"
   },
-  "hedge_0111": {
+  "hedge_0110": {
    "id": 100,
    "x": 64,
    "y": 96,
    "collision": "solid"
   },
-  "hedge_1000": {
+  "hedge_0111": {
    "id": 101,
    "x": 80,
    "y": 96,
    "collision": "solid"
   },
-  "hedge_1001": {
+  "hedge_1000": {
    "id": 102,
    "x": 96,
    "y": 96,
    "collision": "solid"
   },
-  "hedge_1010": {
+  "hedge_1001": {
    "id": 103,
    "x": 112,
    "y": 96,
    "collision": "solid"
   },
-  "hedge_1011": {
+  "hedge_1010": {
    "id": 104,
    "x": 128,
    "y": 96,
    "collision": "solid"
   },
-  "hedge_1100": {
+  "hedge_1011": {
    "id": 105,
    "x": 144,
    "y": 96,
    "collision": "solid"
   },
-  "hedge_1101": {
+  "hedge_1100": {
    "id": 106,
    "x": 160,
    "y": 96,
    "collision": "solid"
   },
-  "hedge_1110": {
+  "hedge_1101": {
    "id": 107,
    "x": 176,
    "y": 96,
    "collision": "solid"
   },
-  "hedge_1111": {
+  "hedge_1110": {
    "id": 108,
    "x": 192,
+   "y": 96,
+   "collision": "solid"
+  },
+  "hedge_1111": {
+   "id": 109,
+   "x": 208,
    "y": 96,
    "collision": "solid"
   }

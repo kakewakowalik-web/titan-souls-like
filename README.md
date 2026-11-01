@@ -42,3 +42,6 @@ Test trasy i zrzuty: `xvfb-run -a godot --rendering-driver opengl3 --path . -s m
 - `art/map1/`: `map1_ground.png` (ground_layer z kafli), `map1_canopy.png`, `tileset_16.png`/`tileset.json` (109 kafli, autotile), `map.json` (warstwy), `collision.json` (0/1/2) → `map1.json` (solid/water, spawn w px [328,744]).
 - `anim/` (trawa 4f, woda 6f) – jeszcze niepodpięte. Stara mapa v2 w `art/map1/v2/`.
 - Test: `xvfb-run -a godot --rendering-driver opengl3 --path . -s mapshot.gd`.
+
+### Mapa 1 – jaskinia v2.1 (Artist)
+Łuk 5×3 (x214–218, y34–36), wejście 3 kafle (x215–217, y34), komnata x213–218, y26–32 (+ przejście y33). cave_rect = [3408, 416, 96, 128] px. Artist może przerysować łuk na 4 kafle.

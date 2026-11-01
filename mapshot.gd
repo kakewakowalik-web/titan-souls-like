@@ -19,14 +19,14 @@ func _init():
 	m.sim = {"move": Vector2.ZERO}; m.step(DT)
 	for i in 30: m.step(DT)
 	await snap("shot-map-garden.png")
-	var route := [Vector2(648, 744), Vector2(648, 680), Vector2(1432, 680), Vector2(1432, 616), Vector2(3448, 616), Vector2(3448, 648), Vector2(3464, 648), Vector2(3464, 664), Vector2(3576, 664), Vector2(3576, 648)]
+	var route := [Vector2(648, 744), Vector2(648, 680), Vector2(1432, 680), Vector2(1432, 616), Vector2(3448, 616), Vector2(3464, 616), Vector2(3464, 552), Vector2(3464, 456)]
 	var ok := true
 	for i in route.size():
 		var r := go(route[i])
 		print("PT waypoint_%d %s reached=%s at %s" % [i, route[i], r, m.ppos.round()])
 		ok = ok and r
 		if i == 2: await snap("shot-map-lake.png")
-		if i == 4: await snap("shot-map-cave-entry.png")
+		if i == 6: await snap("shot-map-cave-entry.png")
 	for i in 120: m.sim = {"move": Vector2.ZERO}; m.step(DT)
 	await snap("shot-map-cave.png")
 	print("PT route_ok = ", ok)
