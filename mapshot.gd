@@ -19,7 +19,7 @@ func _init():
 	m.sim = {"move": Vector2.ZERO}; m.step(DT)
 	for i in 30: m.step(DT)
 	await snap("shot-map-garden.png")
-	var route := [Vector2(648, 744), Vector2(648, 680), Vector2(1432, 680), Vector2(1432, 616), Vector2(3448, 616), Vector2(3464, 616), Vector2(3464, 552), Vector2(3464, 456)]
+	var route := [Vector2(648, 744), Vector2(648, 680), Vector2(1432, 680), Vector2(1432, 616), Vector2(3448, 616), Vector2(3464, 616), Vector2(3464, 576), Vector2(3464, 456)]
 	var ok := true
 	for i in route.size():
 		var r := go(route[i])

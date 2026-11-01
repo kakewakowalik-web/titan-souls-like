@@ -47,3 +47,4 @@ Test trasy i zrzuty: `xvfb-run -a godot --rendering-driver opengl3 --path . -s m
 Łuk 5×3 (x214–218, y34–36), wejście 3 kafle (x215–217, y34), komnata x213–218, y26–32 (+ przejście y33). cave_rect = [3408, 416, 96, 128] px. Artist może przerysować łuk na 4 kafle.
 
 - Arch canopy v2.2: cave arch roof moved to canopy layer; ground under opening is cave floor.
+- Arch canopy v2.3: dach łuku wydłużony (y34–36), postać chowa się pod wejściem.
