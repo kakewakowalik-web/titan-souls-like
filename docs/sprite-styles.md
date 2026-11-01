@@ -19,3 +19,12 @@ Podgląd: `art/proposals/compare_dark.png`. Postać w ×6 na ciemnym tle, obok �
 - **C4 – Mag-łucznik** (`c4_mag_lucznik`): zieleń, szeroki kapelusz, szata, łuk ze świecącą runą.
 - **C5 – Mroczny rycerz** (`c5_mroczny_rycerz`): stalowy błękit, czerwone oczy, kolce na naramiennikach, ciężki łuk.
 Najczytelniejsze w ruchu: C1, C3 i C4 (mocna poświata, wyraźny kształt głowy).
+
+## Pięć różnych postaci (p1–p5)
+Podgląd: `art/proposals/compare_five.png`. Postać w ×6 na tle areny, obok ×2 na trzech tłach. Pliki `art/proposals/p1…p5_*.png` + `_x6.png`, generator `make_five.py`. Wszystkie mają 24×32, cieniowanie, obrys i łuk.
+- **P1 – Leśna tropicielka** (`p1_lesna_tropicielka`): jasna zieleń, rude włosy z warkoczem, kołczan z lotkami.
+- **P2 – Zwiadowca pustyni** (`p2_zwiadowca_pustyni`): piaskowa szata, turban z klejnotem, turkusowa chusta na twarzy, czerwona szarfa.
+- **P3 – Królewski łucznik** (`p3_krolewski_lucznik`): granat ze złotem, korona, czerwona peleryna, złoty łuk.
+- **P4 – Łowca mrozu** (`p4_lowca_mrozu`): biało-błękitne futro, kaptur, lodowy łuk.
+- **P5 – Cień w kapturze** (`p5_cien_w_kapturze`): jedyna ciemna postać, z cyjanową poświatą.
+Najczytelniejsze na ciemnej arenie: P4, P3, P1. P2 i P5 też są dobrze widoczne.
