@@ -1,9 +1,20 @@
 extends Node2D
-# Strzała Strażnika — arena treningowa (bez bossa). Ruch + unik + łuk + kamera.
+# Strzała Strażnika — mapa 1 (ogród → jezioro → jaskinia) albo arena treningowa. Ruch + unik + łuk + kamera.
 # Boss MVP odłożony w legacy/boss_mvp.gd.
 const VIEW := Vector2(320, 240)
-const ARENA := Rect2(0, 0, 640, 480)
-const WALL := 16.0
+const ARENA_TRAIN := Rect2(0, 0, 640, 480)
+var ARENA := ARENA_TRAIN
+var WALL := 16.0
+# --- mapa 1 ---
+var map_mode := true
+var MAP := {}
+var map_solid := []   # wiersze "0101…"
+var map_water := []
+var map_tex: Texture2D
+var canopy_tex: Texture2D
+var cmod: CanvasModulate
+var light: PointLight2D
+var darkness := 0.0
 const PR := 4.0 # promień gracza
 
 # --- ruch (wartości po 3 iteracjach, patrz docs/feel-notes.md) ---
@@ -64,6 +75,8 @@ func _pressed(name: String, down: bool) -> bool:
 	var was: bool = prev_keys.get(name, false); prev_keys[name] = down
 	return down and not was
 
+var pillars_on := true
+var targets_on := true
 var pillars := [Rect2(140, 120, 24, 24), Rect2(476, 120, 24, 24), Rect2(140, 336, 24, 24), Rect2(476, 336, 24, 24), Rect2(300, 220, 40, 40)]
 var dummies := [] # {p, hit}
 
@@ -98,15 +111,34 @@ var cam_pos := Vector2.ZERO
 func _ready() -> void:
 	for c in CHARS: texs.append(load(c.tex))
 	apply_char(0)
+	var fa := FileAccess.open("res://art/map1/map1.json", FileAccess.READ)
+	MAP = JSON.parse_string(fa.get_as_text()); map_solid = MAP.solid; map_water = MAP.water
+	map_tex = load("res://art/map1/map1_ground.png"); canopy_tex = load("res://art/map1/map1_canopy.png")
+	cmod = CanvasModulate.new(); add_child(cmod)
+	light = PointLight2D.new(); add_child(light)
+	var gt := GradientTexture2D.new(); gt.width = 256; gt.height = 256; gt.fill = GradientTexture2D.FILL_RADIAL
+	gt.fill_from = Vector2(0.5, 0.5); gt.fill_to = Vector2(1.0, 0.5)
+	var gr := Gradient.new(); gr.set_color(0, Color(1, 0.92, 0.75, 1)); gr.set_color(1, Color(1, 0.9, 0.7, 0)); gt.gradient = gr
+	light.texture = gt; light.texture_scale = 0.75; light.energy = 0.0
 	cam = Camera2D.new(); add_child(cam); cam.make_current()
 	var layer := CanvasLayer.new(); add_child(layer)
 	hud = Node2D.new(); layer.add_child(hud); hud.draw.connect(_draw_hud)
 	reset()
 
 func reset() -> void:
-	ppos = Vector2(320, 400); pvel = Vector2.ZERO; roll_t = 0.0; roll_cd = 0.0; bonk = 0.0
+	if map_mode:
+		var tsz: float = MAP.tile
+		ARENA = Rect2(0, 0, MAP.w * tsz, MAP.h * tsz); WALL = 0.0
+		ppos = Vector2(MAP.spawn[0], MAP.spawn[1]); pillars_on = false
+	else:
+		ARENA = ARENA_TRAIN; WALL = 16.0; ppos = Vector2(320, 400); pillars_on = true
+	pvel = Vector2.ZERO; roll_t = 0.0; roll_cd = 0.0; bonk = 0.0
 	has_arrow = true; aflying = false; charging = false; recalling = false; charge = 0.0
 	dummies = [{"p": Vector2(320, 90), "hit": 0.0}, {"p": Vector2(90, 240), "hit": 0.0}, {"p": Vector2(550, 240), "hit": 0.0}]
+	if map_mode:
+		dummies = []
+		if targets_on:
+			for q in MAP.targets: dummies.append({"p": Vector2(q[0], q[1]), "hit": 0.0})
 	dodge_buf = 0.0; shift_was = false; trail.clear(); cam_pos = ppos; cam.position = cam_pos; cam.zoom = Vector2.ONE * ZOOM_BASE
 
 # --- wejście (klawiatura + mysz + pad) ---
@@ -168,6 +200,8 @@ func step(dt: float) -> void:
 		elif phase == 1:
 			if l: apply_char((char_i + CHARS.size() - 1) % CHARS.size())
 			if r: apply_char((char_i + 1) % CHARS.size())
+			if _pressed("mode", Input.is_key_pressed(KEY_TAB) or Input.is_key_pressed(KEY_M) or _btn(JOY_BUTTON_Y)): map_mode = not map_mode
+			if _pressed("tg", Input.is_key_pressed(KEY_T) or _btn(JOY_BUTTON_X)): targets_on = not targets_on
 			if ok: reset(); started = true; phase = 2; prev_keys["ok"] = true
 		_camera(dt); queue_redraw(); hud.queue_redraw(); return
 	if _pressed("esc", Input.is_key_pressed(KEY_ESCAPE) or _btn(JOY_BUTTON_BACK)) and sim.size() == 0:
@@ -240,8 +274,18 @@ func _player(dt: float) -> void:
 func _dust(p: Vector2, life: float) -> void:
 	dust.append({"p": p + Vector2(0, 4), "life": life})
 
-func _solid(p: Vector2, r: float) -> bool:
+func _cell(x: int, y: int, rows: Array) -> bool:
+	if y < 0 or y >= rows.size() or x < 0 or x >= String(rows[0]).length(): return true
+	return String(rows[y])[x] == "1"
+
+func _solid(p: Vector2, r: float, arrow := false) -> bool:
 	if not ARENA.grow(-WALL - r).has_point(p): return true
+	if map_mode:
+		var tsz: float = MAP.tile
+		for o in [Vector2(-r, -r), Vector2(r, -r), Vector2(-r, r), Vector2(r, r)]:
+			var q: Vector2 = p + o; var cx := int(q.x / tsz); var cy := int(q.y / tsz)
+			if _cell(cx, cy, map_solid) and not (arrow and _cell(cx, cy, map_water)): return true
+		return false
 	for q in pillars:
 		if q.grow(r).has_point(p): return true
 	return false
@@ -272,7 +316,7 @@ func _arrow(dt: float) -> void:
 		return
 	if aflying:
 		var np := apos + avel * dt
-		if _solid(np, 1.0):
+		if _solid(np, 1.0, true):
 			aflying = false; shake = 0.15  # wbija się w ścianę/filar
 		else:
 			apos = np
@@ -286,7 +330,22 @@ func _hit_dummies() -> void:
 			d.hit = 0.6; hitstop = 0.05; shake = 0.4
 
 # --- kamera w stylu Titan Souls ---
+func _update_light(dt: float) -> void:
+	var want := 0.0
+	if map_mode:
+		var tsz: float = MAP.tile
+		want = clamp((ppos.x - 90 * tsz) / (14 * tsz), 0.0, 1.0) * 0.45
+		var cr: Array = MAP.cave_rect
+		if Rect2(cr[0], cr[1], cr[2], cr[3]).grow(8).has_point(ppos): want = 0.9
+	darkness += (want - darkness) * (1.0 - exp(-3.0 * dt))
+	var v := 1.0 - darkness
+	cmod.color = Color(v, v * 0.97, v * 1.05 if v < 1 else 1.0)
+	light.position = ppos + Vector2(0, -8); light.energy = darkness * 1.6
+	light.visible = darkness > 0.02
+	if not has_arrow and CHARS[char_i].proj == "orb": light.position = apos  # kula maga świeci
+
 func _camera(dt: float) -> void:
+	_update_light(dt)
 	var target := ppos
 	var z := ZOOM_BASE
 	if charging:
@@ -312,7 +371,10 @@ func _camera(dt: float) -> void:
 	cam.position = (c + sh).round()
 
 func _draw() -> void:
-	draw_rect(Rect2(-200, -200, 1040, 880), Color("141318"))
+	draw_rect(Rect2(-400, -400, ARENA.size.x + 800, ARENA.size.y + 800), Color("141318"))
+	if map_mode:
+		draw_texture(map_tex, Vector2.ZERO)
+		_draw_entities(); draw_texture(canopy_tex, Vector2.ZERO); return
 	draw_rect(ARENA, Color("2f2d29"))
 	for x in range(0, int(ARENA.size.x), 16):
 		for y in range(0, int(ARENA.size.y), 16):
@@ -322,6 +384,9 @@ func _draw() -> void:
 	for q in pillars:
 		draw_rect(Rect2(q.position + Vector2(0, 4), q.size), Color(0, 0, 0, 0.35))
 		draw_rect(q, Color("6b6455")); draw_rect(Rect2(q.position, Vector2(q.size.x, 4)), Color("857d6a"))
+	_draw_entities()
+
+func _draw_entities() -> void:
 	for d in dummies:
 		var c := Color("d9c27a") if d.hit > 0.0 else Color("8a6a4a")
 		draw_rect(Rect2(d.p - Vector2(1, -2), Vector2(2, 6)), Color("4a3a2a"))
@@ -388,7 +453,8 @@ func _draw_hud() -> void:
 		var wname: String = {"arrow": "łuk i jedna strzała", "axe": "jeden topór do rzucania", "orb": "jedna kula zaklęcia"}[c.proj]
 		hud.draw_string(f, Vector2(0, 186), c.desc, HORIZONTAL_ALIGNMENT_CENTER, VIEW.x, 9, Color("cfc6ad"))
 		hud.draw_string(f, Vector2(0, 200), "Broń: " + wname + " (strzał + przywołanie)", HORIZONTAL_ALIGNMENT_CENTER, VIEW.x, 8, Color("a89f86"))
-		hud.draw_string(f, Vector2(0, 224), "◄ ► / A D / krzyżak – wybór · ENTER / A – graj", HORIZONTAL_ALIGNMENT_CENTER, VIEW.x, 8, Color("e8d9a0"))
+		hud.draw_string(f, Vector2(0, 212), "Tryb: " + ("MAPA 1 – Ogród → Jezioro → Jaskinia" if map_mode else "ARENA TRENINGOWA") + " [Tab/Y]   Tarcze: " + ("tak" if targets_on else "nie") + " [T/X]", HORIZONTAL_ALIGNMENT_CENTER, VIEW.x, 7, Color("9ad0e0"))
+		hud.draw_string(f, Vector2(0, 228), "◄ ► / A D / krzyżak – wybór · ENTER / A – graj", HORIZONTAL_ALIGNMENT_CENTER, VIEW.x, 8, Color("e8d9a0"))
 		return
 	if not started:
 		hud.draw_rect(Rect2(0, 0, VIEW.x, VIEW.y), Color(0, 0, 0, 0.7))
@@ -404,5 +470,5 @@ func _draw_hud() -> void:
 		hud.draw_string(f, Vector2(0, 198), "Unik przerywa przywołanie (trzymaj dalej, by wznowić).", HORIZONTAL_ALIGNMENT_CENTER, VIEW.x, 8, Color("cfc6ad"))
 		hud.draw_string(f, Vector2(0, 220), "ENTER / START / A – dalej (wybór postaci)", HORIZONTAL_ALIGNMENT_CENTER, VIEW.x, 9, Color("e8d9a0"))
 		return
-	hud.draw_string(f, Vector2(4, 12), "ARENA TRENINGOWA · " + String(CHARS[char_i].name).to_upper() + " · Esc: zmiana postaci", HORIZONTAL_ALIGNMENT_LEFT, -1, 8, Color("7d7563"))
+	hud.draw_string(f, Vector2(4, 12), ("OGRÓD → JEZIORO → JASKINIA" if map_mode else "ARENA TRENINGOWA") + " · " + String(CHARS[char_i].name).to_upper() + " · Esc: zmiana postaci", HORIZONTAL_ALIGNMENT_LEFT, -1, 8, Color("7d7563"))
 	hud.draw_string(f, Vector2(0, 236), ("B/LB: unik" if pad_used else "Shift: unik") + " · 1 " + String({"arrow": "STRZAŁA", "axe": "TOPÓR", "orb": "KULA"}[CHARS[char_i].proj]) + " · " + ("strzała: jest" if has_arrow else ("LT/X: przywołaj" if pad_used else "R/PPM: przywołaj")), HORIZONTAL_ALIGNMENT_RIGHT, VIEW.x - 4, 8, Color("7d7563"))

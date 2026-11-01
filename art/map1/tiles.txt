@@ -1,28 +1,13 @@
-0	trawa	(0,0)
-1	trawa_2	(16,0)
-2	kwiaty_czerwone	(32,0)
-3	kwiaty_zolte	(48,0)
-4	kwiaty_niebieskie	(64,0)
-5	sciezka	(80,0)
-6	kamienna_sciezka	(96,0)
-7	woda	(112,0)
-8	woda_gleboka	(0,16)
-9	brzeg_woda_pd	(16,16)
-10	brzeg_woda_pn	(32,16)
-11	brzeg_woda_zach	(48,16)
-12	brzeg_woda_wsch	(64,16)
-13	zywoplot	(80,16)
-14	kamien	(96,16)
-15	lilia_wodna	(112,16)
-16	trzciny	(0,32)
-17	skalista_trawa	(16,32)
-18	klif_gora	(32,32)
-19	klif_sciana	(48,32)
-20	jaskinia_podloga	(64,32)
-21	jaskinia_sciana	(80,32)
-obj	drzewo_dab	(0, 0, 32, 48)
-obj	drzewo_wisnia	(36, 0, 32, 48)
-obj	drzewo_swierk	(72, 0, 32, 48)
-obj	krzew	(108, 32, 16, 16)
-obj	fontanna	(128, 8, 48, 40)
-obj	wejscie_jaskini	(180, 0, 64, 48)
+0	trawa	chodzenie
+1	sciezka	chodzenie
+2	aleja	chodzenie
+3	woda	KOLIZJA
+4	gleboka_woda	KOLIZJA
+5	zywoplot	KOLIZJA
+6	kwiaty	chodzenie
+7	skala	KOLIZJA
+8	klif_gora	KOLIZJA
+9	klif	KOLIZJA
+10	jaskinia	chodzenie
+11	sciana_jaskini	KOLIZJA
+12	skalista_trawa	chodzenie

@@ -31,3 +31,8 @@ Testy: `godot --headless --path . -s playtest.gd`. Notatki: docs/feel-notes.md.
 | Barbarzyńca | topór (rzut + przywołanie, wiruje) | krótki lot, powrót 520 px/s |
 | Mag | kula zaklęcia (rzut czaru + przyciągnięcie) | wolne napięcie, długi lot, powrót 340 px/s |
 Wybór: ◄ ► / A D / krzyżak / lewa gałka, Enter / A = graj. Rzucanie czaru i topora też wymaga stania w miejscu (jak napinanie). Sprite'y: art/player/.
+
+## Mapa 1 (domyślna)
+Po wyborze postaci startujesz na **Mapie 1: Ogród → Jezioro → Jaskinia** (opis i zasady: `art/map1/README.md`).
+Na ekranie wyboru: **Tab / M / pad Y** – przełącz mapa ↔ arena treningowa, **T / pad X** – tarcze tak/nie.
+Test trasy i zrzuty: `xvfb-run -a godot --rendering-driver opengl3 --path . -s mapshot.gd`.

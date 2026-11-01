@@ -7,7 +7,7 @@ func run(frames: int, inp: Dictionary) -> void:
 	for i in frames: m.step(DT)
 func _init():
 	m = load("res://main.tscn").instantiate(); root.add_child(m); await process_frame
-	m.set_process(false); m.sim = {"move": Vector2.ZERO}; m.step(DT)
+	m.set_process(false); m.map_mode = false; m.reset(); m.sim = {"move": Vector2.ZERO}; m.step(DT)
 	var R := {}
 	# 1. przyspieszenie
 	m.reset(); var f := 0

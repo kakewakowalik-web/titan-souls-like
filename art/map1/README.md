@@ -1,17 +1,31 @@
-# Mapa 1 — Ogród → ścieżka nad jeziorem → ciemna jaskinia (grafika, bez TileMapy)
-Generator: `python3 make_map1.py`. Kafel ma 16×16 px, ten sam piksel co postacie.
+# Mapa 1 — Ogród → Ścieżka nad jeziorem → Jaskinia (v2)
 
-## Pliki
-- `tileset.png` — 22 kafle, siatka 8 kolumn × 16 px. Lista z indeksami i współrzędnymi: `tiles.txt`.
-- `objects.png` — większe obiekty (współrzędne w `tiles.txt`): dąb, wiśnia, świerk (32×48), krzew (16×16), fontanna (48×40), wejście do jaskini (64×48).
-- `overview_map1.png` — podgląd całej mapy 120×26 kafli (1920×416 px). `overview_map1_opis.png` to ten sam podgląd z podpisami stref, a `overview_map1_maly.png` jest pomniejszony.
+Generator: `make_map1.py` (Python + PIL, deterministyczny). Stara wersja: `v1/`.
 
-## Kafle (indeks → znaczenie)
-0–1 trawa (2 warianty) · 2–4 rabaty kwiatów (czerwone/żółte/niebieskie) · 5 ścieżka ziemna · 6 kamienna aleja · 7 woda · 8 głęboka woda · 9–12 brzeg (woda po stronie: pd / pn / zach / wsch) · 13 żywopłot (kolizja) · 14 kamień (kolizja) · 15 lilia wodna · 16 trzciny na brzegu · 17 skalista trawa · 18 krawędź klifu · 19 ściana klifu (kolizja) · 20 podłoga jaskini (bardzo ciemna) · 21 ściana jaskini (kolizja).
+Pliki:
+- `map1_ground.png` – podłoże 1920×640 (120×40 kafli po 16 px), rysowane pod graczem.
+- `map1_canopy.png` – korony drzew, rysowane NAD graczem (chowa się pod drzewem).
+- `map1.json` – `solid` (kolizja gracza), `water` (woda: blokuje gracza, nie strzałę), `spawn`, `zones`, `cave_rect`, `targets`.
+- `tileset.png`, `tiles.txt` – 13 typów kafli i flaga kolizji.
+- `overview_map1*.png` – podgląd całej mapy (z opisami / zmniejszony).
 
-## Przebieg mapy
-1. **Ogród** (kafle 0–38): żywopłoty, rabaty, kwitnące wiśnie, kamienna aleja z fontanną. Jasno i spokojnie.
-2. **Ścieżka nad jeziorem** (38–90): duże jezioro z liliami i trzcinami. Ścieżka wije się wzdłuż południowego brzegu, przy niej dęby.
-3. **Wejście do jaskini** (90–120): trawa przechodzi w skały, pojawiają się świerki. Pod klifem jest czarne wejście do jaskini, a ekran stopniowo ciemnieje (w grze: CanvasModulate / światło gracza).
+## Inspiracja Titan Souls
+- Cichy, rozległy świat jako „korytarz” między walkami: długie spacery, mało obiektów, wyraźne punkty orientacyjne (fontanna, jezioro, ciemny otwór skały).
+- Stonowana paleta (szałwiowa zieleń, przygaszony błękit, piaskowa ścieżka, szary kamień), bez jaskrawych kolorów – kontrast zostaje dla gracza, strzały i celów.
+- Progresja nastroju: jasny ogród → otwarte jezioro → coraz ciemniej przy klifie → prawie czarna jaskinia.
 
-W Godot: TileSet z `tileset.png` (16×16, filtr Nearest), kolizja na kaflach 13, 14, 19 i 21, a woda (7–8) jako przeszkoda dla gracza, ale nie dla strzały. Obiekty jako Sprite2D z Y-sort.
+## Zasady grywalności (zastosowane)
+1. **Szerokość przejść ≥ 3–4 kafle** (48–64 px) – szersze niż przewrót (~47 px), więc unik nie kończy się „bonkiem” na krawędzi ścieżki.
+2. **Czytelne sylwetki**: wszystko, co blokuje, ma cień pod spodem, jaśniejszą górną krawędź i wyższy kontrast niż podłoże; podłoże po którym się chodzi jest płaskie i ciche.
+3. **Kolizja = wygląd**: blokuje tylko to, co wygląda na twarde (żywopłot, pień, kamień, klif, fontanna, woda). Kwiaty i trawa są przechodnie. Pnie drzew są solidne, korony rysują się nad graczem.
+4. **Woda blokuje gracza, ale nie strzałę** – można strzelać przez jezioro (test `arrow_over_water`).
+5. **Bramy ~7 kafli, wejście do jaskini 5 kafli** – przejścia między strefami są szerokie i widoczne z daleka.
+6. **Ścieżka prowadzi wzrok**: piaskowy pas wije się wzdłuż brzegu jeziora i kończy pod otworem jaskini.
+7. **Kamera ograniczona do mapy** (ARENA = 1920×640), więc nigdy nie widać pustki poza światem.
+8. **Ciemność rośnie przy klifie**, a w jaskini prawie czerń + światło wokół gracza (PointLight2D). Kula maga też świeci.
+9. **Spawn w ogrodzie** (128, 344) – bezpieczny, jasny start z widokiem na aleję prowadzącą do bramy.
+10. **Cele treningowe opcjonalne** (3 tarcze: ogród, ścieżka, jaskinia) – przełącznik T / pad X na ekranie wyboru postaci.
+
+## Weryfikacja
+`mapshot.gd` przechodzi trasę ogród → brama → ścieżka → jaskinia (10 punktów, wszystkie osiągnięte),
+sprawdza że woda blokuje gracza i że strzała przelatuje nad wodą, i robi zrzuty `shot-map-*.png`.

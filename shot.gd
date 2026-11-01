@@ -8,7 +8,7 @@ func snap(name):
 	root.get_texture().get_image().save_png("res://" + name)
 func _init():
 	m = load("res://main.tscn").instantiate(); root.add_child(m); await process_frame
-	m.set_process(false)
+	m.set_process(false); m.map_mode = false; m.reset()
 	await snap("shot-title.png")
 	await snap("shot-pad-hint.png")
 	m.sim = {"move": Vector2.ZERO}; m.step(DT)
