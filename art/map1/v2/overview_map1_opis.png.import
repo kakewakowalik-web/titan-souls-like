@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pgoyb22fty2o"
-path="res://.godot/imported/overview_map1_opis.png-13260e347f2d7fc4d517dc384b2fe3ba.ctex"
+uid="uid://8x51limkj6k8"
+path="res://.godot/imported/overview_map1_opis.png-ad7bef08ef0b7c92a18c57a17a8d50a7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/map1/overview_map1_opis.png"
-dest_files=["res://.godot/imported/overview_map1_opis.png-13260e347f2d7fc4d517dc384b2fe3ba.ctex"]
+source_file="res://art/map1/v2/overview_map1_opis.png"
+dest_files=["res://.godot/imported/overview_map1_opis.png-ad7bef08ef0b7c92a18c57a17a8d50a7.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8d8ashxtsaep"
-path="res://.godot/imported/overview_map1_maly.png-8559cd39bbbc28066e31c029fc610d95.ctex"
+uid="uid://by74ijyc0b5vm"
+path="res://.godot/imported/grass_tuft_4f_x6.png-52729fa2d1999709d38b7cf385a89673.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/map1/overview_map1_maly.png"
-dest_files=["res://.godot/imported/overview_map1_maly.png-8559cd39bbbc28066e31c029fc610d95.ctex"]
+source_file="res://art/map1/anim/grass_tuft_4f_x6.png"
+dest_files=["res://.godot/imported/grass_tuft_4f_x6.png-52729fa2d1999709d38b7cf385a89673.ctex"]
 
 [params]
 

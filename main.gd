@@ -334,7 +334,7 @@ func _update_light(dt: float) -> void:
 	var want := 0.0
 	if map_mode:
 		var tsz: float = MAP.tile
-		want = clamp((ppos.x - 90 * tsz) / (14 * tsz), 0.0, 1.0) * 0.45
+		want = clamp((ppos.x - 190 * tsz) / (24 * tsz), 0.0, 1.0) * 0.45
 		var cr: Array = MAP.cave_rect
 		if Rect2(cr[0], cr[1], cr[2], cr[3]).grow(8).has_point(ppos): want = 0.9
 	darkness += (want - darkness) * (1.0 - exp(-3.0 * dt))
@@ -453,7 +453,7 @@ func _draw_hud() -> void:
 		var wname: String = {"arrow": "łuk i jedna strzała", "axe": "jeden topór do rzucania", "orb": "jedna kula zaklęcia"}[c.proj]
 		hud.draw_string(f, Vector2(0, 186), c.desc, HORIZONTAL_ALIGNMENT_CENTER, VIEW.x, 9, Color("cfc6ad"))
 		hud.draw_string(f, Vector2(0, 200), "Broń: " + wname + " (strzał + przywołanie)", HORIZONTAL_ALIGNMENT_CENTER, VIEW.x, 8, Color("a89f86"))
-		hud.draw_string(f, Vector2(0, 212), "Tryb: " + ("MAPA 1 – Ogród → Jezioro → Jaskinia" if map_mode else "ARENA TRENINGOWA") + " [Tab/Y]   Tarcze: " + ("tak" if targets_on else "nie") + " [T/X]", HORIZONTAL_ALIGNMENT_CENTER, VIEW.x, 7, Color("9ad0e0"))
+		hud.draw_string(f, Vector2(0, 212), "Tryb: " + ("MAPA 1 (overworld) – Ogród → Jezioro → Jaskinia" if map_mode else "ARENA TRENINGOWA") + " [Tab/Y]   Tarcze: " + ("tak" if targets_on else "nie") + " [T/X]", HORIZONTAL_ALIGNMENT_CENTER, VIEW.x, 7, Color("9ad0e0"))
 		hud.draw_string(f, Vector2(0, 228), "◄ ► / A D / krzyżak – wybór · ENTER / A – graj", HORIZONTAL_ALIGNMENT_CENTER, VIEW.x, 8, Color("e8d9a0"))
 		return
 	if not started:

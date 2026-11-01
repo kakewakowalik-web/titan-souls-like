@@ -36,3 +36,9 @@ Wybór: ◄ ► / A D / krzyżak / lewa gałka, Enter / A = graj. Rzucanie czaru
 Po wyborze postaci startujesz na **Mapie 1: Ogród → Jezioro → Jaskinia** (opis i zasady: `art/map1/README.md`).
 Na ekranie wyboru: **Tab / M / pad Y** – przełącz mapa ↔ arena treningowa, **T / pad X** – tarcze tak/nie.
 Test trasy i zrzuty: `xvfb-run -a godot --rendering-driver opengl3 --path . -s mapshot.gd`.
+
+## Mapa 1 v3 – overworld (kit Artysty v2)
+- 240×80 kafli × 16 px = 3840×1280. Ogród → łąka/most/jezioro → klify → wejście do jaskini (x≈218–225, y≈38–41).
+- `art/map1/`: `map1_ground.png` (ground_layer z kafli), `map1_canopy.png`, `tileset_16.png`/`tileset.json` (109 kafli, autotile), `map.json` (warstwy), `collision.json` (0/1/2) → `map1.json` (solid/water, spawn w px [328,744]).
+- `anim/` (trawa 4f, woda 6f) – jeszcze niepodpięte. Stara mapa v2 w `art/map1/v2/`.
+- Test: `xvfb-run -a godot --rendering-driver opengl3 --path . -s mapshot.gd`.

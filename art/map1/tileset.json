@@ -1,0 +1,671 @@
+{
+ "tile_size": 16,
+ "columns": 16,
+ "version": 2,
+ "wang": "<kind>_<TL><TR><BL><BR>: corner-based (wang) autotiles, 1 = corner belongs to that terrain. Overlays with alpha; draw over base grass.",
+ "layer_order": [
+  "base",
+  "path",
+  "paving",
+  "water",
+  "hedge",
+  "cliff",
+  "deco"
+ ],
+ "tiles": {
+  "grass": {
+   "id": 0,
+   "x": 0,
+   "y": 0,
+   "collision": "walkable"
+  },
+  "grass_alt": {
+   "id": 1,
+   "x": 16,
+   "y": 0,
+   "collision": "walkable"
+  },
+  "flowers": {
+   "id": 2,
+   "x": 32,
+   "y": 0,
+   "collision": "walkable"
+  },
+  "grass_mid": {
+   "id": 3,
+   "x": 48,
+   "y": 0,
+   "collision": "walkable"
+  },
+  "grass_dark": {
+   "id": 4,
+   "x": 64,
+   "y": 0,
+   "collision": "walkable"
+  },
+  "grass_dark_alt": {
+   "id": 5,
+   "x": 80,
+   "y": 0,
+   "collision": "walkable"
+  },
+  "bridge": {
+   "id": 6,
+   "x": 96,
+   "y": 0,
+   "collision": "walkable"
+  },
+  "rock": {
+   "id": 7,
+   "x": 112,
+   "y": 0,
+   "collision": "solid"
+  },
+  "pillar": {
+   "id": 8,
+   "x": 128,
+   "y": 0,
+   "collision": "solid"
+  },
+  "tree_trunk": {
+   "id": 9,
+   "x": 144,
+   "y": 0,
+   "collision": "solid"
+  },
+  "fountain_0_0": {
+   "id": 10,
+   "x": 160,
+   "y": 0,
+   "collision": "solid"
+  },
+  "fountain_1_0": {
+   "id": 11,
+   "x": 176,
+   "y": 0,
+   "collision": "solid"
+  },
+  "fountain_2_0": {
+   "id": 12,
+   "x": 192,
+   "y": 0,
+   "collision": "solid"
+  },
+  "fountain_0_1": {
+   "id": 13,
+   "x": 208,
+   "y": 0,
+   "collision": "solid"
+  },
+  "fountain_1_1": {
+   "id": 14,
+   "x": 224,
+   "y": 0,
+   "collision": "solid"
+  },
+  "fountain_2_1": {
+   "id": 15,
+   "x": 240,
+   "y": 0,
+   "collision": "solid"
+  },
+  "fountain_0_2": {
+   "id": 16,
+   "x": 0,
+   "y": 16,
+   "collision": "solid"
+  },
+  "fountain_1_2": {
+   "id": 17,
+   "x": 16,
+   "y": 16,
+   "collision": "solid"
+  },
+  "fountain_2_2": {
+   "id": 18,
+   "x": 32,
+   "y": 16,
+   "collision": "solid"
+  },
+  "cave_0_0": {
+   "id": 19,
+   "x": 48,
+   "y": 16,
+   "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
+  },
+  "cave_1_0": {
+   "id": 20,
+   "x": 64,
+   "y": 16,
+   "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
+  },
+  "cave_2_0": {
+   "id": 21,
+   "x": 80,
+   "y": 16,
+   "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
+  },
+  "cave_3_0": {
+   "id": 22,
+   "x": 96,
+   "y": 16,
+   "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
+  },
+  "cave_4_0": {
+   "id": 23,
+   "x": 112,
+   "y": 16,
+   "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
+  },
+  "cave_0_1": {
+   "id": 24,
+   "x": 128,
+   "y": 16,
+   "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
+  },
+  "cave_1_1": {
+   "id": 25,
+   "x": 144,
+   "y": 16,
+   "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
+  },
+  "cave_2_1": {
+   "id": 26,
+   "x": 160,
+   "y": 16,
+   "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
+  },
+  "cave_3_1": {
+   "id": 27,
+   "x": 176,
+   "y": 16,
+   "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
+  },
+  "cave_4_1": {
+   "id": 28,
+   "x": 192,
+   "y": 16,
+   "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
+  },
+  "cave_0_2": {
+   "id": 29,
+   "x": 208,
+   "y": 16,
+   "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
+  },
+  "cave_1_2": {
+   "id": 30,
+   "x": 224,
+   "y": 16,
+   "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
+  },
+  "cave_2_2": {
+   "id": 31,
+   "x": 240,
+   "y": 16,
+   "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
+  },
+  "cave_3_2": {
+   "id": 32,
+   "x": 0,
+   "y": 32,
+   "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
+  },
+  "cave_4_2": {
+   "id": 33,
+   "x": 16,
+   "y": 32,
+   "collision": "solid (inner 3 bottom tiles walkable = cave trigger)"
+  },
+  "path_0001": {
+   "id": 34,
+   "x": 32,
+   "y": 32,
+   "collision": "walkable"
+  },
+  "path_0010": {
+   "id": 35,
+   "x": 48,
+   "y": 32,
+   "collision": "walkable"
+  },
+  "path_0011": {
+   "id": 36,
+   "x": 64,
+   "y": 32,
+   "collision": "walkable"
+  },
+  "path_0100": {
+   "id": 37,
+   "x": 80,
+   "y": 32,
+   "collision": "walkable"
+  },
+  "path_0101": {
+   "id": 38,
+   "x": 96,
+   "y": 32,
+   "collision": "walkable"
+  },
+  "path_0110": {
+   "id": 39,
+   "x": 112,
+   "y": 32,
+   "collision": "walkable"
+  },
+  "path_0111": {
+   "id": 40,
+   "x": 128,
+   "y": 32,
+   "collision": "walkable"
+  },
+  "path_1000": {
+   "id": 41,
+   "x": 144,
+   "y": 32,
+   "collision": "walkable"
+  },
+  "path_1001": {
+   "id": 42,
+   "x": 160,
+   "y": 32,
+   "collision": "walkable"
+  },
+  "path_1010": {
+   "id": 43,
+   "x": 176,
+   "y": 32,
+   "collision": "walkable"
+  },
+  "path_1011": {
+   "id": 44,
+   "x": 192,
+   "y": 32,
+   "collision": "walkable"
+  },
+  "path_1100": {
+   "id": 45,
+   "x": 208,
+   "y": 32,
+   "collision": "walkable"
+  },
+  "path_1101": {
+   "id": 46,
+   "x": 224,
+   "y": 32,
+   "collision": "walkable"
+  },
+  "path_1110": {
+   "id": 47,
+   "x": 240,
+   "y": 32,
+   "collision": "walkable"
+  },
+  "path_1111": {
+   "id": 48,
+   "x": 0,
+   "y": 48,
+   "collision": "walkable"
+  },
+  "paving_0001": {
+   "id": 49,
+   "x": 16,
+   "y": 48,
+   "collision": "walkable"
+  },
+  "paving_0010": {
+   "id": 50,
+   "x": 32,
+   "y": 48,
+   "collision": "walkable"
+  },
+  "paving_0011": {
+   "id": 51,
+   "x": 48,
+   "y": 48,
+   "collision": "walkable"
+  },
+  "paving_0100": {
+   "id": 52,
+   "x": 64,
+   "y": 48,
+   "collision": "walkable"
+  },
+  "paving_0101": {
+   "id": 53,
+   "x": 80,
+   "y": 48,
+   "collision": "walkable"
+  },
+  "paving_0110": {
+   "id": 54,
+   "x": 96,
+   "y": 48,
+   "collision": "walkable"
+  },
+  "paving_0111": {
+   "id": 55,
+   "x": 112,
+   "y": 48,
+   "collision": "walkable"
+  },
+  "paving_1000": {
+   "id": 56,
+   "x": 128,
+   "y": 48,
+   "collision": "walkable"
+  },
+  "paving_1001": {
+   "id": 57,
+   "x": 144,
+   "y": 48,
+   "collision": "walkable"
+  },
+  "paving_1010": {
+   "id": 58,
+   "x": 160,
+   "y": 48,
+   "collision": "walkable"
+  },
+  "paving_1011": {
+   "id": 59,
+   "x": 176,
+   "y": 48,
+   "collision": "walkable"
+  },
+  "paving_1100": {
+   "id": 60,
+   "x": 192,
+   "y": 48,
+   "collision": "walkable"
+  },
+  "paving_1101": {
+   "id": 61,
+   "x": 208,
+   "y": 48,
+   "collision": "walkable"
+  },
+  "paving_1110": {
+   "id": 62,
+   "x": 224,
+   "y": 48,
+   "collision": "walkable"
+  },
+  "paving_1111": {
+   "id": 63,
+   "x": 240,
+   "y": 48,
+   "collision": "walkable"
+  },
+  "water_0001": {
+   "id": 64,
+   "x": 0,
+   "y": 64,
+   "collision": "water"
+  },
+  "water_0010": {
+   "id": 65,
+   "x": 16,
+   "y": 64,
+   "collision": "water"
+  },
+  "water_0011": {
+   "id": 66,
+   "x": 32,
+   "y": 64,
+   "collision": "water"
+  },
+  "water_0100": {
+   "id": 67,
+   "x": 48,
+   "y": 64,
+   "collision": "water"
+  },
+  "water_0101": {
+   "id": 68,
+   "x": 64,
+   "y": 64,
+   "collision": "water"
+  },
+  "water_0110": {
+   "id": 69,
+   "x": 80,
+   "y": 64,
+   "collision": "water"
+  },
+  "water_0111": {
+   "id": 70,
+   "x": 96,
+   "y": 64,
+   "collision": "water"
+  },
+  "water_1000": {
+   "id": 71,
+   "x": 112,
+   "y": 64,
+   "collision": "water"
+  },
+  "water_1001": {
+   "id": 72,
+   "x": 128,
+   "y": 64,
+   "collision": "water"
+  },
+  "water_1010": {
+   "id": 73,
+   "x": 144,
+   "y": 64,
+   "collision": "water"
+  },
+  "water_1011": {
+   "id": 74,
+   "x": 160,
+   "y": 64,
+   "collision": "water"
+  },
+  "water_1100": {
+   "id": 75,
+   "x": 176,
+   "y": 64,
+   "collision": "water"
+  },
+  "water_1101": {
+   "id": 76,
+   "x": 192,
+   "y": 64,
+   "collision": "water"
+  },
+  "water_1110": {
+   "id": 77,
+   "x": 208,
+   "y": 64,
+   "collision": "water"
+  },
+  "water_1111": {
+   "id": 78,
+   "x": 224,
+   "y": 64,
+   "collision": "water"
+  },
+  "cliff_0001": {
+   "id": 79,
+   "x": 240,
+   "y": 64,
+   "collision": "solid"
+  },
+  "cliff_0010": {
+   "id": 80,
+   "x": 0,
+   "y": 80,
+   "collision": "solid"
+  },
+  "cliff_0011": {
+   "id": 81,
+   "x": 16,
+   "y": 80,
+   "collision": "solid"
+  },
+  "cliff_0100": {
+   "id": 82,
+   "x": 32,
+   "y": 80,
+   "collision": "solid"
+  },
+  "cliff_0101": {
+   "id": 83,
+   "x": 48,
+   "y": 80,
+   "collision": "solid"
+  },
+  "cliff_0110": {
+   "id": 84,
+   "x": 64,
+   "y": 80,
+   "collision": "solid"
+  },
+  "cliff_0111": {
+   "id": 85,
+   "x": 80,
+   "y": 80,
+   "collision": "solid"
+  },
+  "cliff_1000": {
+   "id": 86,
+   "x": 96,
+   "y": 80,
+   "collision": "solid"
+  },
+  "cliff_1001": {
+   "id": 87,
+   "x": 112,
+   "y": 80,
+   "collision": "solid"
+  },
+  "cliff_1010": {
+   "id": 88,
+   "x": 128,
+   "y": 80,
+   "collision": "solid"
+  },
+  "cliff_1011": {
+   "id": 89,
+   "x": 144,
+   "y": 80,
+   "collision": "solid"
+  },
+  "cliff_1100": {
+   "id": 90,
+   "x": 160,
+   "y": 80,
+   "collision": "solid"
+  },
+  "cliff_1101": {
+   "id": 91,
+   "x": 176,
+   "y": 80,
+   "collision": "solid"
+  },
+  "cliff_1110": {
+   "id": 92,
+   "x": 192,
+   "y": 80,
+   "collision": "solid"
+  },
+  "cliff_1111": {
+   "id": 93,
+   "x": 208,
+   "y": 80,
+   "collision": "solid"
+  },
+  "hedge_0001": {
+   "id": 94,
+   "x": 224,
+   "y": 80,
+   "collision": "solid"
+  },
+  "hedge_0010": {
+   "id": 95,
+   "x": 240,
+   "y": 80,
+   "collision": "solid"
+  },
+  "hedge_0011": {
+   "id": 96,
+   "x": 0,
+   "y": 96,
+   "collision": "solid"
+  },
+  "hedge_0100": {
+   "id": 97,
+   "x": 16,
+   "y": 96,
+   "collision": "solid"
+  },
+  "hedge_0101": {
+   "id": 98,
+   "x": 32,
+   "y": 96,
+   "collision": "solid"
+  },
+  "hedge_0110": {
+   "id": 99,
+   "x": 48,
+   "y": 96,
+   "collision": "solid"
+  },
+  "hedge_0111": {
+   "id": 100,
+   "x": 64,
+   "y": 96,
+   "collision": "solid"
+  },
+  "hedge_1000": {
+   "id": 101,
+   "x": 80,
+   "y": 96,
+   "collision": "solid"
+  },
+  "hedge_1001": {
+   "id": 102,
+   "x": 96,
+   "y": 96,
+   "collision": "solid"
+  },
+  "hedge_1010": {
+   "id": 103,
+   "x": 112,
+   "y": 96,
+   "collision": "solid"
+  },
+  "hedge_1011": {
+   "id": 104,
+   "x": 128,
+   "y": 96,
+   "collision": "solid"
+  },
+  "hedge_1100": {
+   "id": 105,
+   "x": 144,
+   "y": 96,
+   "collision": "solid"
+  },
+  "hedge_1101": {
+   "id": 106,
+   "x": 160,
+   "y": 96,
+   "collision": "solid"
+  },
+  "hedge_1110": {
+   "id": 107,
+   "x": 176,
+   "y": 96,
+   "collision": "solid"
+  },
+  "hedge_1111": {
+   "id": 108,
+   "x": 192,
+   "y": 96,
+   "collision": "solid"
+  }
+ }
+}

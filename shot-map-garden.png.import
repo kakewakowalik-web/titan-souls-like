@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3siw8atnv4wc"
-path="res://.godot/imported/overview_map1.png-1103edf00dc63fba97151d693a854d90.ctex"
+uid="uid://7npjsbdjrdlp"
+path="res://.godot/imported/shot-map-garden.png-8f66e59d0549bddb859ffb282813a64b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/map1/overview_map1.png"
-dest_files=["res://.godot/imported/overview_map1.png-1103edf00dc63fba97151d693a854d90.ctex"]
+source_file="res://shot-map-garden.png"
+dest_files=["res://.godot/imported/shot-map-garden.png-8f66e59d0549bddb859ffb282813a64b.ctex"]
 
 [params]
 
